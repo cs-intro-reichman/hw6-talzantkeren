@@ -131,25 +131,25 @@ public class Runigram {
 		return n1;
 	}
 	/**
-	 * Returns an image which is the scaled version of the given image. 
-	 * The image is scaled (resized) to have the given width and height.
-	 */
-	public static Color[][] scaled(Color[][] image, int width, int height) {
-		Color [][] n1 = new Color[height][width];
-		double scaleY = (double) image.length / height; 
-		double scaleX = (double) image[0].length / width;
+	 /**
+ * Returns an image which is the scaled version of the given image.
+ * The image is scaled (resized) to have the given width and height.
+ */
+public static Color[][] scaled(Color[][] image, int width, int height) {
+    Color[][] n1 = new Color[height][width];
+    double scaleY = (double) image.length / height; 
+    double scaleX = (double) image[0].length / width;
 
-		int posX=0;
-		int posY=0;
-		for(int i = 0; i<height;i++){
-			for(int j = 0; j<width;j++){
-				posX = Math.min((int) Math.round(scaleY * i), image.length - 1);
-				posY = Math.min((int) Math.round(scaleX * j), image[0].length - 1);
-				n1[i][j] = image[posX][posY];
-			}
-		}
-		return n1;
-	}
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            int posX = (int) Math.min(Math.floor(scaleY * i), image.length - 1);
+            int posY = (int) Math.min(Math.floor(scaleX * j), image[0].length - 1);
+            n1[i][j] = image[posX][posY];
+        }
+    }
+    return n1;
+}
+
 	
 	/**
 	 * Computes and returns a blended color which is a linear combination of the two given
