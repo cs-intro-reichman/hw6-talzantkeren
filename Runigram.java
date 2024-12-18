@@ -158,12 +158,11 @@ public class Runigram {
 	 * values in the two input color.
 	 */
 	public static Color blend(Color c1, Color c2, double alpha) {
-		int red=0;
-		int green = 0;
-		int blue = 0;
-		red =(int)Math.round(c1.getRed()*alpha+c2.getRed()*(1-alpha));
-		green =(int)Math.round(c1.getGreen()*alpha+c2.getGreen()*(1-alpha));
-		blue =(int)Math.round(c1.getBlue()*alpha+c2.getBlue()*(1-alpha));
+	
+		int red = Math.min(255, Math.max(0, (int) Math.round(c1.getRed() * alpha + c2.getRed() * (1 - alpha))));
+		int green = Math.min(255, Math.max(0, (int) Math.round(c1.getGreen() * alpha + c2.getGreen() * (1 - alpha))));
+		int blue = Math.min(255, Math.max(0, (int) Math.round(c1.getBlue() * alpha + c2.getBlue() * (1 - alpha))));
+
 		Color n = new Color(red,green,blue);
 		return n;
 	}
@@ -197,7 +196,8 @@ public class Runigram {
 			target=scaled(target,source[0].length,source.length);
 		}
 		for(int i = 0; i < n;i++){
-			re = blend(source, target, (n-i)/n);
+			double alpha = (double) (n - i) / n;
+            re = blend(source, target, alpha);
 			display(re);
 			StdDraw.pause(500);
 		}
