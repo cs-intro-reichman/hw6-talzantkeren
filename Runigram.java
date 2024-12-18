@@ -158,13 +158,10 @@ public static Color[][] scaled(Color[][] image, int width, int height) {
 	 * values in the two input color.
 	 */
 	public static Color blend(Color c1, Color c2, double alpha) {
-	
-		int red = Math.min(255, Math.max(0, (int) Math.round(c1.getRed() * alpha + c2.getRed() * (1 - alpha))));
-		int green = Math.min(255, Math.max(0, (int) Math.round(c1.getGreen() * alpha + c2.getGreen() * (1 - alpha))));
-		int blue = Math.min(255, Math.max(0, (int) Math.round(c1.getBlue() * alpha + c2.getBlue() * (1 - alpha))));
-
-		Color n = new Color(red,green,blue);
-		return n;
+		int red = (int)(alpha * c1.getRed() + (1 - alpha) * c2.getRed());
+		int green = (int)(alpha * c1.getGreen() + (1 - alpha) * c2.getGreen());
+		int blue = (int)(alpha * c1.getBlue() + (1 - alpha) * c2.getBlue());
+		return new Color(red, green, blue);
 	}
 	
 	/**
@@ -195,16 +192,12 @@ public static Color[][] scaled(Color[][] image, int width, int height) {
 	 * of the source image.
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
-		Color [][] re = new Color[source.length][source[0].length];
-		if(source.length!=target.length||source[0].length!=target[0].length)
-		{
-			target=scaled(target,source[0].length,source.length);
-		}
+		Color[][] nTarget = scaled(target, source[0].length, source.length);
 		for(int i = 0; i < n;i++){
 			double alpha = (double) (n - i) / n;
-            re = blend(source, target, alpha);
-			display(re);
-			StdDraw.pause(500);
+			Color[][] morph = blend(source, nTarget, (double)((n - i) / n));
+			display(morph);
+			StdDraw.pause(1000);
 		}
 
 	}
