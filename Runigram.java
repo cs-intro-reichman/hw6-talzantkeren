@@ -174,13 +174,18 @@ public static Color[][] scaled(Color[][] image, int width, int height) {
 	 * The two images must have the same dimensions.
 	 */
 	public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
-		Color[][] n = new Color[image1.length][image1[0].length];
-		for(int i = 0; i<image1.length;i++){
-			for(int j = 0; j<image1[0].length;j++){
-				n[i][j]=blend(image1[i][j],image2[i][j], alpha);
+		int rows = image1.length;
+		int cols = image1[0].length;
+	
+		Color[][] blendedImage = new Color[rows][cols];
+	
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				blendedImage[i][j] = blend(image1[i][j], image2[i][j], alpha);
 			}
 		}
-		return n;
+	
+		return blendedImage;
 	}
 
 	/**
